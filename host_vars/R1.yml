@@ -1,0 +1,9 @@
+---
+hostname: R1
+
+mgmt_interface: Management1
+mgmt_ip_address: 192.168.1.251/24
+mgmt_gateway: 192.168.1.1
+location: NYC-DC-R1
+contact: NETENG
+

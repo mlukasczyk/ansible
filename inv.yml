@@ -1,0 +1,25 @@
+---
+all: 
+  children:
+    routers:
+      children:
+        eos_routers:  #ARISTA ROUTERS/SWITCHES
+          children:
+            eos_inband_mgmt:
+              hosts: 
+                #R4:
+            eos_oob_mgmt:
+              hosts:
+                R1:
+                R2:
+                R3:
+        ios_routers:  #CISCO ROUTERS
+          hosts:
+            #R2:
+            #R3:
+
+# INI format
+# [routers]
+# R1
+# R2
+# R3
