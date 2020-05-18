@@ -1,0 +1,6 @@
+{% for host in logging_hosts %}
+logging vrf manage host {{ host.address }} 514
+{% endfor %}
+logging buffered 100000 notifications
+logging facility local7
+logging vrf manage source-interface {{ mgmt_interface }}

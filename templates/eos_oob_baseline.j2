@@ -34,7 +34,7 @@ errdisable recovery cause bpduguard
 hostname {{ hostname }}
 !
 {% for host in logging_hosts %}
-logging vrf manage host {{ host.address }}
+logging vrf manage host {{ host.address }} 514
 {% endfor %}
 logging buffered 100000 notifications
 logging facility local7
@@ -60,16 +60,16 @@ ntp server vrf manage {{ host.address }}
 {% endfor %}
 !
 snmp-server local-interface {{ mgmt_interface }}
-snmp-server location {{ location }}
-snmp-server contact {{ contact }}
 snmp-server enable traps
-snmp-server enable traps entity
-snmp-server enable traps lldp
-snmp-server enable traps ospf
-snmp-server enable traps pim
-snmp-server enable traps snmp link-up
-snmp-server enable traps snmp link-down
-snmp-server enable traps snmp authentication
+snmp-server local-interface {{ mgmt_interface }}
+snmp-server enable traps
+{% for opt in snmp_options %}
+snmp-server location {{ opt.location }}
+snmp-server contact {{ opt.contact }}
+{%   for trap in opt.traps %}
+snmp-server enable trap {{ trap }}
+{%   endfor %}
+{% endfor %}
 snmp-server vrf manage
 snmp-server host {{ snmp_trap_server }} vrf manage informs version 2c toucan
 snmp-server community toucan ro snmp_ro_acl
@@ -92,7 +92,7 @@ management api http-commands
       no shutdown
 !
 management console
-   idle-timeout 10
+   idle-timeout 0
 !
 management ssh
    idle-timeout 10

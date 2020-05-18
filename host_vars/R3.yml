@@ -7,3 +7,16 @@ mgmt_gateway: 192.168.1.1
 location: NYC-DC-R3
 contact: NETENG
 
+
+#SNMP
+snmp_options:
+  - location: NYC-DC-R1
+    contact: NETENG
+    traps:
+      - entity
+      - bgp
+      - lldp
+      - ospf
+      - snmp authentication
+      - snmp link-down
+      - snmp link-up
