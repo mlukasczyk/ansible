@@ -1,0 +1,43 @@
+---
+- name: "PLAY 1: Verify"
+  hosts: routers
+  connection: network_cli
+  tasks:
+    - name: "TASK 1: Get running configuration"
+      eos_command:
+        commands: "show running-config | section ^logging"
+      register: show_result
+
+    - name: "TASK 2: Get initial configuration"
+      set_fact:
+        rendered_template: "{{ lookup('template', 'templates/arista/logging.j2') }}"
+
+    - name: "TASK 3: Parse running data from device"
+      set_fact:
+        running_data: "{{ show_result.stdout[0] | split_at_newline }}"
+
+    - name: "TASK 4: Parse initial data from template"
+      set_fact:
+        initial_data: "{{ rendered_template | split_at_newline }}"
+
+    - name: "TASK 5: Use set theory to reconcile intended vs actual state"
+      set_fact:
+        needed_vrf_changes: "{{ initial_data | diff(running_data) }}"
+
+    - name: "TASK 6: Print results"
+      debug:
+        msg: "{{ needed_vrf_changes }}"
+
+      #- name: "TASK 4: Apply RT state changes"
+      #ios_config:
+      #  src: "templates/vpn.j2"
+      #  save_when: changed
+      #  running_config: "{{ vrf_config.stdout[0] }}"
+      #notify: config_changed
+      #register: cli_result
+
+      #handlers:
+      #- name: "HANDLER 1: Display relevant changes"
+      # listen: config_changed
+      # debug:
+      #   msg: "{{ cli_result.updates }}"

@@ -1,0 +1,15 @@
+snmp-server local-interface {{ mgmt_interface }}
+snmp-server enable traps
+snmp-server local-interface {{ mgmt_interface }}
+snmp-server enable traps
+{% for opt in snmp_options %}
+snmp-server location {{ opt.location }}
+snmp-server contact {{ opt.contact }}
+{%   for trap in opt.traps %}
+snmp-server enable trap {{ trap }}
+{%   endfor %}
+{% endfor %}
+snmp-server vrf manage
+snmp-server host {{ snmp_trap_server }} vrf manage informs version 2c toucan
+snmp-server community toucan ro snmp_ro_acl
+snmp-server community peregrim rw snmp_rw_acl

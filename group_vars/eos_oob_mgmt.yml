@@ -1,2 +1,18 @@
 ---
 baseline_config: eos_oob_baseline
+baseline_configs:
+  - file: templates/arista/oob_baseline/alias.j2
+  - file: templates/arista/oob_baseline/api.j2
+  - file: templates/arista/oob_baseline/banner.j2
+  - file: templates/arista/oob_baseline/console.j2
+  - file: templates/arista/oob_baseline/enable.j2
+  - file: templates/arista/oob_baseline/logging.j2
+  - file: templates/arista/oob_baseline/management.j2
+  - file: templates/arista/oob_baseline/misc.j2
+  - file: templates/arista/oob_baseline/ntp.j2
+  - file: templates/arista/oob_baseline/snmp.j2
+  - file: templates/arista/oob_baseline/snmp_ro_acl.j2
+  - file: templates/arista/oob_baseline/snmp_rw_acl.j2
+  - file: templates/arista/oob_baseline/spanning-tree.j2
+  - file: templates/arista/oob_baseline/ssh.j2
+  - file: templates/arista/oob_baseline/username.j2

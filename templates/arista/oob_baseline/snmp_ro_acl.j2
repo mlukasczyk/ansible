@@ -1,0 +1,5 @@
+ip access-list standard snmp_ro_acl
+{% for rule in snmp_ro_acl %}
+   {{rule.seq}} {{rule.action}} {{rule.rule}}
+{% endfor %}
+!

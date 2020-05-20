@@ -1,0 +1,8 @@
+ntp local-interface vrf manage {{ mgmt_interface }}
+{% for host in ntp_hosts %}
+{% if host['prefer'] %}
+ntp server vrf manage {{ host.address }} prefer
+{% else %}
+ntp server vrf manage {{ host.address }}
+{% endif %}
+{% endfor %}

@@ -1,0 +1,5 @@
+alias wrnet
+   10 copy running-config startup-config
+   20 cli vrf management
+   30 copy running-config tftp:{{ tftp_server }}/{{ hostname }}-confg
+   40 cli vrf default
