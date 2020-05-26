@@ -21,8 +21,8 @@ class FilterModule:
         run_set_list = set(run_list)
 
         #Perform set "diff' operation
-        new_dict.update({'add': list(int_set_list - run_set_list)})
-        new_dict.update({'del': list(run_set_list - int_set_list)})
+        new_dict.update({'missing': list(int_set_list - run_set_list)})
+        new_dict.update({'additional': list(run_set_list - int_set_list)})
         
         return_list.append(new_dict)
     

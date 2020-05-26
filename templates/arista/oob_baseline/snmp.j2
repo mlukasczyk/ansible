@@ -6,7 +6,7 @@ snmp-server enable traps
 snmp-server location {{ opt.location }}
 snmp-server contact {{ opt.contact }}
 {%   for trap in opt.traps %}
-snmp-server enable trap {{ trap }}
+snmp-server enable traps {{ trap }}
 {%   endfor %}
 {% endfor %}
 snmp-server vrf manage

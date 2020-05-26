@@ -1,0 +1,25 @@
+---
+  - name: "TASK 1: Gather Running Configuration From Devices"
+    eos_command:
+      commands: " {{ verify.command }}"
+    register: show_result
+
+  - name: "TASK 2: Gather Initial Baseline Configuration From Template"
+    set_fact:
+      rendered_template: "{{ lookup('template', '{{ verify.file }}') }}"
+
+  - name: "TASK 3: Parse Running Configuration Data "
+    set_fact:
+      running_data: "{{ show_result.stdout[0] | split_at_newline }}"
+
+  - name: "TASK 4: Parse Initial Baseline Configuration Data"
+    set_fact:
+      initial_data: "{{ rendered_template | split_at_newline }}"
+
+  - name: "TASK 5: Place Data In Sets To Reconcile Intended vs Actual State"
+    set_fact:
+      needed_changes: "{{ initial_data | diff(running_data) }}"
+
+  - name: "TASK 6: Display Verify Results For {{ verify.name }}"
+    debug:
+      msg: "{{ needed_changes }}"
